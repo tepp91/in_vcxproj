@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 # ----------------------------------------------------------------------
-def make_set_in_vcxproj_impl(proj_path):
+def make_set_in_vcxproj(proj_path):
     tree = ET.parse(proj_path)
     root = tree.getroot()
 
@@ -27,22 +27,6 @@ def make_set_in_vcxproj_impl(proj_path):
     file_set = {os.path.normpath(os.path.join(proj_dir, x)) for x in file_set}
 
     return file_set
-
-
-# ----------------------------------------------------------------------
-def make_set_in_vcxproj(proj_path):
-    vcxproj_set = set()
-
-    if os.path.isdir(proj_path):
-        p = Path(proj_path)
-        for vcxproj_path in p.glob('*.vcxproj'):
-            vcxproj_set |= make_set_in_vcxproj_impl(str(vcxproj_path))
-
-    elif Path(proj_path).suffix == '.vcxproj':
-        vcxproj_set = make_set_in_vcxproj_impl(proj_path)
-
-    return vcxproj_set
-
 
 # ----------------------------------------------------------------------
 def make_set_in_dir(dir_path):
@@ -84,7 +68,7 @@ def main():
 
     args = parser.parse_args()
 
-    if not os.path.exists(args.proj_path):
+    if not os.path.isfile(args.proj_path):
         print('The specified path does not exist.')
         return
 
