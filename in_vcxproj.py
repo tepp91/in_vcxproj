@@ -28,6 +28,7 @@ def make_set_in_vcxproj(proj_path):
 
     return file_set
 
+
 # ----------------------------------------------------------------------
 def make_set_in_dir(dir_path):
     file_set = set()
@@ -64,7 +65,7 @@ def main():
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-ne', action='store_true')
-    group.add_argument('-dir');
+    group.add_argument('-dir')
 
     args = parser.parse_args()
 
